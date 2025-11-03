@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>💰 Expense Tracker</title>
+  <style>
+    body { font-family: Arial; background: #f6f8fa; margin: 40px; }
+    h1 { text-align: center; color: #2c3e50; }
+    .total { text-align: center; margin-bottom: 20px; font-size: 20px; }
+    a { text-decoration: none; padding: 8px 12px; background: #3498db; color: white; border-radius: 5px; margin: 5px; }
+    a:hover { background: #2980b9; }
+    table { width: 80%; margin: 20px auto; border-collapse: collapse; box-shadow: 0 0 10px #ccc; }
+    th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+    th { background: #2c3e50; color: white; }
+    td a { padding: 5px 8px; border-radius: 4px; }
+    .edit { background: #27ae60; }
+    .delete { background: #e74c3c; }
+  </style>
+</head>
+<body>
+  <h1>💰 Expense Tracker</h1>
+  <div class="total">Total Spent: <strong>₹{{ total }}</strong></div>
+  <div style="text-align:center;">
+    <a href="{% url 'add_expense' %}">➕ Add New Expense</a>
+  </div>
+
+  <table>
+    <tr>
+      <th>Title</th>
+      <th>Category</th>
+      <th>Amount</th>
+      <th>Date</th>
+      <th>Note</th>
+      <th>Actions</th>
+    </tr>
+    {% for e in expenses %}
+    <tr>
+      <td>{{ e.title }}</td>
+      <td>{{ e.category }}</td>
+      <td>₹{{ e.amount }}</td>
+      <td>{{ e.date }}</td>
+      <td>{{ e.note }}</td>
+      <td>
+        <a href="{% url 'edit_expense' e.id %}" class="edit">Edit</a>
+        <a href="{% url 'delete_expense' e.id %}" class="delete">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>
